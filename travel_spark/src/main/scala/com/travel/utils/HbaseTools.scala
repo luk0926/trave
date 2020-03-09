@@ -350,7 +350,7 @@ object HbaseTools extends Logging with Serializable {
       classOf[TableInputFormat],
       classOf[ImmutableBytesWritable],
       classOf[Result])
-    //
+    //rdd如何转换成为df，可以配合样例类进行转换
 
     import sparkSession.implicits._
 
@@ -421,6 +421,8 @@ object HbaseTools extends Logging with Serializable {
   def getHbaseConn: Connection = {
     try{
       val config:Configuration = HBaseConfiguration.create()
+      val str = GlobalConfigUtils.getProp("hbase.zookeeper.quorum")
+      println(str)
       config.set("hbase.zookeeper.quorum" , GlobalConfigUtils.getProp("hbase.zookeeper.quorum"))
    //   config.set("hbase.master" , GlobalConfigUtils.getProp("hbase.master"))
       config.set("hbase.zookeeper.property.clientPort" , GlobalConfigUtils.getProp("hbase.zookeeper.property.clientPort"))
